@@ -1,13 +1,12 @@
-
 <?php
 ini_set('session.gc_maxlifetime', 86400);
 session_set_cookie_params([
-    'lifetime' => 86400,
-    'path' => '/',
-    'domain' => '',
-    'secure' => true,
-    'httponly' => true,
-    'samesite' => 'Lax'
+  'lifetime' => 86400,
+  'path' => '/',
+  'domain' => '',
+  'secure' => true,
+  'httponly' => true,
+  'samesite' => 'Lax'
 ]);
 
 session_start();
@@ -30,7 +29,8 @@ $eventos = $controller->getAllEvents();
   <link rel="stylesheet" href="../assets/css/events.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap"
+    rel="stylesheet">
   <link rel="icon" type="image/png" href="../assets/images/logoDS.png">
 </head>
 
@@ -48,14 +48,16 @@ $eventos = $controller->getAllEvents();
 
     <nav class="nav-menu">
       <a href="../php/events.php">EVENTOS</a>
-      <a href="<?php echo isset($_SESSION['user']) ? ($_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php') : 'login.php'; ?>">PERFIL</a>
+      <a
+        href="<?php echo isset($_SESSION['user']) ? ($_SESSION['user']['is_admin'] ? 'userAdmin.php' : 'userUser.php') : 'login.php'; ?>">PERFIL</a>
     </nav>
   </div>
 
   <main class="events-container">
     <div class="events-grid">
       <?php if (!empty($eventos)): ?>
-        <?php $counter = 1; foreach ($eventos as $event): ?>
+        <?php $counter = 1;
+        foreach ($eventos as $event): ?>
           <div class="event-card">
             <div class="event-badge"><?php echo htmlspecialchars($event['name']); ?></div>
             <div class="event-image">
@@ -81,32 +83,34 @@ $eventos = $controller->getAllEvents();
               </div>
               <p class="event-description"><?php echo htmlspecialchars($event['description']); ?></p>
               <div class="event-footer">
-  <span class="difficulty-label">Nivel:</span>
-  <div class="difficulty-stars">
-    <i class="fas fa-star"></i>
-    <i class="fas fa-star"></i>
-    <i class="fas fa-star"></i>
-    <i class="far fa-star"></i>
-    <i class="far fa-star"></i>
-  </div>
-  <a href="detail.php?id=<?php echo $event['id']; ?>" class="event-details red-button">Más detalles</a>
+                <span class="difficulty-label">Nivel:</span>
+                <div class="difficulty-stars">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <a href="detail.php?id=<?php echo $event['id']; ?>" class="event-details red-button">Más detalles</a>
 
-  <?php if (!empty($_SESSION['user']) && $_SESSION['user']['is_admin']): ?>
-    <!-- Botón Eliminar -->
-    <form action="/../../controllers/EventController.php" method="POST" style="display:inline;">
-      <input type="hidden" name="deleteEvent" value="1">
-      <input type="hidden" name="id" value="<?php echo $event['id']; ?>">
-      <button type="submit" class="btn-delete" onclick="return confirm('¿Seguro que quieres eliminar este evento?');">Eliminar</button>
-    </form>
+                <?php if (!empty($_SESSION['user']) && $_SESSION['user']['is_admin']): ?>
+                  <!-- Botón Eliminar -->
+                  <form action="/../../controllers/EventController.php" method="POST" style="display:inline;">
+                    <input type="hidden" name="deleteEvent" value="1">
+                    <input type="hidden" name="id" value="<?php echo $event['id']; ?>">
+                    <button type="submit" class="btn-delete"
+                      onclick="return confirm('¿Seguro que quieres eliminar este evento?');">Eliminar</button>
+                  </form>
 
-    <!-- Botón Editar que redirige a manageEvents.php -->
-    <a href="./manageEvents.php?id=<?php echo $event['id']; ?>" class="btn-edit" style="margin-left: 10px;">Editar</a>
-  <?php endif; ?>
-</div>
+                  <!-- Botón Editar que redirige a manageEvents.php -->
+                  <a href="./manageEvents.php?id=<?php echo $event['id']; ?>" class="btn-edit"
+                    style="margin-left: 10px;">Editar</a>
+                <?php endif; ?>
+              </div>
 
             </div>
           </div>
-        <?php $counter++; endforeach; ?>
+          <?php $counter++; endforeach; ?>
       <?php else: ?>
         <p style="color:white; text-align:center;">No hay eventos disponibles actualmente.</p>
       <?php endif; ?>
